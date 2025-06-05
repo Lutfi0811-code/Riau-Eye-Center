@@ -1,0 +1,861 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Riau Eye Center Login & Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+
+    /* Font */
+body {
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: #a81a1a;
+  margin: 0;
+  min-height: 100vh;
+  color: #222;
+}
+
+#app {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  overflow: hidden;
+  margin: 32px auto;
+  max-width: 900px;
+}
+
+h1, h2, h3 {
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #a81a1a;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.7rem;
+}
+
+label {
+  font-weight: 600;
+  color: #a81a1a;
+  margin-bottom: 4px;
+  display: block;
+}
+
+input, select, button, textarea {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+  background: #fafafa;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #a81a1a;
+  outline: none;
+  background: #fff;
+}
+
+button {
+  background: #a81a1a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(168,26,26,0.08);
+}
+
+button:hover, button:focus {
+  background: #8d1818;
+}
+
+form {
+  margin-bottom: 1.5rem;
+}
+
+#userList, #queueHerman, #queueNur {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#userList li, #queueHerman li, #queueNur li {
+  background: #f7f7f7;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+}
+
+#userList li:last-child, #queueHerman li:last-child, #queueNur li:last-child {
+  margin-bottom: 0;
+}
+
+#dashboardMenu ul {
+  border-bottom: 1.5px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
+#dashboardMenu li {
+  padding: 0.5rem 1.2rem;
+  border-radius: 0 0 8px 8px;
+  transition: background 0.2s, border-bottom 0.2s;
+}
+
+#dashboardMenu li:hover, #dashboardMenu .border- {
+  background: #fbeaea;
+  border-bottom: 4px solid #a81a1a;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+input[type="submit"], button[type="submit"] {
+  margin-top: 8px;
+}
+
+#displayCallHerman, #displayCallNur {
+  background: #fbeaea;
+  color: #a81a1a;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  padding: 18px 0;
+  margin-top: 1rem;
+}
+
+/* Tambahan CSS untuk form tambah user dashboard */
+
+#addUserForm {
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 2px 12px rgba(168,26,26,0.06);
+  margin-bottom: 2rem;
+}
+
+#addUserForm label {
+  color: #a81a1a;
+  font-weight: 600;
+}
+
+#addUserForm input,
+#addUserForm select {
+  margin-bottom: 1rem;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #fafafa;
+  transition: border-color 0.2s;
+}
+
+#addUserForm input:focus,
+#addUserForm select:focus {
+  border-color: #a81a1a;
+  background: #fff;
+  outline: none;
+}
+
+#addUserForm button[type="submit"] {
+  background: #a81a1a;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(168,26,26,0.08);
+}
+
+#addUserForm button[type="submit"]:hover,
+#addUserForm button[type="submit"]:focus {
+  background: #8d1818;
+}
+
+#userMessage {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 700px) {
+  #app {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .p-8, .max-w-md, .max-w-4xl {
+    padding: 1rem !important;
+    max-width: 100% !important;
+  }
+
+  #addUserForm {
+    padding: 1rem 0.5rem;
+  }
+}
+  </style>
+</head>
+<body class="bg-[#a81a1a] min-h-screen flex justify-center items-center p-6">
+  <div id="app" class="w-full max-w-5xl bg-white rounded-md shadow-lg overflow-hidden">
+    <!-- Login Page -->
+    <section id="loginPage" class="p-8 max-w-md mx-auto">
+      <h1 class="text-3xl font-extrabold font-montserrat mb-8 text-center text-[#a81a1a]">
+        Riau Eye Center Login
+      </h1>
+      <form id="loginForm" class="space-y-6">
+        <div>
+          <label for="loginUsername" class="block font-semibold mb-1 text-gray-700">Username</label>
+          <input
+            type="text"
+            id="loginUsername"
+            name="loginUsername"
+            placeholder="Masukkan username"
+            class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]"
+            required
+          />
+        </div>
+        <div>
+          <label for="loginPassword" class="block font-semibold mb-1 text-gray-700">Password</label>
+          <input
+            type="password"
+            id="loginPassword"
+            name="loginPassword"
+            placeholder="Masukkan password"
+            class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-[#a81a1a] text-white font-bold px-6 py-2 rounded-md hover:bg-red-700 transition"
+        >
+          Login
+        </button>
+        <p id="loginError" class="mt-3 text-red-600 font-semibold text-center"></p>
+      </form>
+    </section>
+
+    <!-- Dashboard Page -->
+    <section id="dashboardPage" class="hidden p-8">
+      <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-extrabold font-montserrat text-[#a81a1a]">Dashboard</h1>
+        <button
+          id="logoutBtn"
+          class="bg-[#a81a1a] text-white font-bold px-4 py-2 rounded-md hover:bg-red-700 transition"
+        >
+          Logout
+        </button>
+      </div>
+
+      <nav id="dashboardMenu" class="mb-8 border-b border-gray-300 hidden">
+        <ul class="flex space-x-6 text-[#a81a1a] font-semibold cursor-pointer select-none flex-wrap">
+          <li id="menuAddUser" class="pb-2 border-b-4 border-transparent hover:border-[#a81a1a]">
+            Kelola User
+          </li>
+          <li id="menuQueue" class="pb-2 border-b-4 border-transparent hover:border-[#a81a1a]">
+            Antrian Dokter
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Manage Users Section -->
+      <section id="sectionAddUser" class="">
+        <h2 class="text-xl font-bold mb-4 text-[#a81a1a]">Kelola User</h2>
+        <form id="addUserForm" class="space-y-4 max-w-md">
+          <div>
+            <label for="userName" class="block font-semibold mb-1 text-gray-700">Nama User</label>
+            <input
+              type="text"
+              id="userName"
+              name="userName"
+              placeholder="Masukkan nama user"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]"
+              required
+            />
+          </div>
+          <div>
+            <label for="userPassword" class="block font-semibold mb-1 text-gray-700">Password</label>
+            <input
+              type="password"
+              id="userPassword"
+              name="userPassword"
+              placeholder="Masukkan password"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]"
+              required
+            />
+          </div>
+          <div>
+            <label for="userRole" class="block font-semibold mb-1 text-gray-700">Jabatan</label>
+            <select
+              id="userRole"
+              name="userRole"
+              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]"
+              required
+            >
+              <option value="" disabled selected>Pilih jabatan</option>
+              <option value="admin">Admin</option>
+              <option value="staff">Staff</option>
+              <option value="doctor">Dokter</option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            class="bg-[#a81a1a] text-white font-bold px-6 py-2 rounded-md hover:bg-red-700 transition"
+          >
+            Tambah User
+          </button>
+        </form>
+        <div id="userMessage" class="mt-3 text-green-600 font-semibold"></div>
+
+        <div class="mt-8 max-w-md">
+          <h3 class="font-bold text-lg text-[#a81a1a] mb-2">Daftar User</h3>
+          <ul id="userList" class="list-disc list-inside border border-gray-300 rounded-md p-4 bg-[#f9f9f9] max-h-64 overflow-y-auto text-gray-800">
+            <!-- Users will appear here -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- Doctor Queue Section for Herman -->
+      <section id="sectionQueueHerman" class="hidden max-w-4xl">
+        <h2 class="text-xl font-bold mb-6 text-[#a81a1a]">Antrian Dokter - dr. Herman, Sp.M</h2>
+        <div class="border border-gray-300 rounded-md p-6 bg-[#f9f9f9] flex flex-col">
+          <ul id="queueHerman" class="list-decimal list-inside max-h-48 overflow-y-auto text-gray-800 flex-grow">
+            <!-- Patients for Dr. Herman -->
+          </ul>
+          <form id="addQueueHermanForm" class="mt-4 flex gap-2">
+            <input
+              type="text"
+              id="queueHermanInput"
+              placeholder="Masukkan nama pasien"
+              class="flex-grow border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]"
+              required
+            />
+            <button
+              type="submit"
+              class="bg-[#a81a1a] text-white font-bold px-4 py-2 rounded-md hover:bg-red-700 transition"
+            >
+              Tambah
+            </button>
+          </form>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button id="resetQueueHermanBtn" class="bg-red-600 text-white font-bold px-4 py-2 rounded-md hover:bg-red-700 transition flex-1">
+              Reset Antrian dr. Herman
+            </button>
+            <button id="callNextHermanBtn" class="bg-green-600 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 transition flex-1">
+              Panggil Pasien Berikutnya dr. Herman
+            </button>
+            <button id="repeatCallHermanBtn" class="bg-yellow-600 text-white font-bold px-4 py-2 rounded-md hover:bg-yellow-700 transition flex-1">
+              Ulangi Panggilan dr. Herman
+            </button>
+          </div>
+          <div class="mt-6 border border-gray-400 rounded-md p-4 bg-white min-h-[80px] text-center text-2xl font-bold text-[#a81a1a]" id="displayCallHerman">
+            -
+          </div>
+        </div>
+      </section>
+
+      <!-- Doctor Queue Section for Nur -->
+      <section id="sectionQueueNur" class="hidden max-w-4xl">
+        <h2 class="text-xl font-bold mb-6 text-[#a81a1a]">Antrian Dokter - dr. Nur Chaironika, Sp.M</h2>
+        <div class="border border-gray-300 rounded-md p-6 bg-[#f9f9f9] flex flex-col">
+          <ul id="queueNur" class="list-decimal list-inside max-h-48 overflow-y-auto text-gray-800 flex-grow">
+            <!-- Patients for Dr. Nur -->
+          </ul>
+          <form id="addQueueNurForm" class="mt-4 flex gap-2">
+            <input
+              type="text"
+              id="queueNurInput"
+              placeholder="Masukkan nama pasien"
+              class="flex-grow border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]"
+              required
+            />
+            <button
+              type="submit"
+              class="bg-[#a81a1a] text-white font-bold px-4 py-2 rounded-md hover:bg-red-700 transition"
+            >
+              Tambah
+            </button>
+          </form>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button id="resetQueueNurBtn" class="bg-red-600 text-white font-bold px-4 py-2 rounded-md hover:bg-red-700 transition flex-1">
+              Reset Antrian dr. Nur
+            </button>
+            <button id="callNextNurBtn" class="bg-green-600 text-white font-bold px-4 py-2 rounded-md hover:bg-green-700 transition flex-1">
+              Panggil Pasien Berikutnya dr. Nur
+            </button>
+            <button id="repeatCallNurBtn" class="bg-yellow-600 text-white font-bold px-4 py-2 rounded-md hover:bg-yellow-700 transition flex-1">
+              Ulangi Panggilan dr. Nur
+            </button>
+          </div>
+          <div class="mt-6 border border-gray-400 rounded-md p-4 bg-white min-h-[80px] text-center text-2xl font-bold text-[#a81a1a]" id="displayCallNur">
+            -
+          </div>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <script>
+    // Define doctor assignments (map username to doctor queue)
+    const doctorQueueMap = {
+      "admin": "herman",    // admin user is dr. Herman, Sp.M
+      "admin2": "nur",     // admin2 user is dr. Nur Chaironika, Sp.M
+    };
+
+    // In-memory user database (username, password, role, name)
+    const usersDB = [
+      { username: "admin", password: "admin", role: "doctor", name: "dr. Herman, Sp.M" },
+      { username: "admin2", password: "123", role: "doctor", name: "dr. Nur Chaironika, Sp.M" },
+      { username: "staff1", password: "staff123", role: "staff", name: "Staff 1" }
+    ];
+
+    // Doctor queues with numbering preserved
+    let queueHerman = [];
+    let queueNur = [];
+
+    // Current called patient info per doctor
+    let currentCallHerman = null; // { name: string, number: number }
+    let currentCallNur = null; // { name: string, number: number }
+
+    // DOM elements
+    const loginPage = document.getElementById("loginPage");
+    const dashboardPage = document.getElementById("dashboardPage");
+    const loginForm = document.getElementById("loginForm");
+    const loginError = document.getElementById("loginError");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const dashboardMenu = document.getElementById("dashboardMenu");
+    const menuAddUser = document.getElementById("menuAddUser");
+    const menuQueue = document.getElementById("menuQueue");
+    const sectionAddUser = document.getElementById("sectionAddUser");
+    const sectionQueueHerman = document.getElementById("sectionQueueHerman");
+    const sectionQueueNur = document.getElementById("sectionQueueNur");
+
+    const addUserForm = document.getElementById("addUserForm");
+    const userMessage = document.getElementById("userMessage");
+    const userList = document.getElementById("userList");
+
+    const queueHermanList = document.getElementById("queueHerman");
+    const queueNurList = document.getElementById("queueNur");
+    const addQueueHermanForm = document.getElementById("addQueueHermanForm");
+    const addQueueNurForm = document.getElementById("addQueueNurForm");
+    const queueHermanInput = document.getElementById("queueHermanInput");
+    const queueNurInput = document.getElementById("queueNurInput");
+
+    const resetQueueHermanBtn = document.getElementById("resetQueueHermanBtn");
+    const callNextHermanBtn = document.getElementById("callNextHermanBtn");
+    const repeatCallHermanBtn = document.getElementById("repeatCallHermanBtn");
+
+    const resetQueueNurBtn = document.getElementById("resetQueueNurBtn");
+    const callNextNurBtn = document.getElementById("callNextNurBtn");
+    const repeatCallNurBtn = document.getElementById("repeatCallNurBtn");
+
+    const displayCallHerman = document.getElementById("displayCallHerman");
+    const displayCallNur = document.getElementById("displayCallNur");
+
+    // Current logged in user
+    let currentUser = null;
+
+    // Daftar nama dokter yang digunakan di sistem
+const doctorNames = [
+  "dr. Herman, Sp.M",
+  "dr. Nur Chaironika, Sp.M"
+];
+
+// Fungsi untuk mendapatkan nama dokter yang sudah diurutkan abjad
+function getSortedDoctorName(name) {
+  // Jika nama dokter ada di daftar, urutkan dan ambil index-nya
+  const sorted = [...doctorNames].sort((a, b) => a.localeCompare(b, 'id'));
+  // Jika nama ada di daftar, kembalikan nama sesuai urutan abjad
+  const idx = sorted.indexOf(name);
+  return idx !== -1 ? sorted[idx] : name;
+}
+
+// Render user list with edit capability for admin (none in this simplified version)
+    function renderUsers() {
+      userList.innerHTML = "";
+      usersDB.forEach((user, index) => {
+        const li = document.createElement("li");
+        li.classList.add("flex", "justify-between", "items-center", "mb-1");
+
+        const userInfo = document.createElement("span");
+        userInfo.textContent = `${user.name} (Username: ${user.username}, Jabatan: ${user.role})`;
+
+        li.appendChild(userInfo);
+
+        if (currentUser.role === "admin") {
+          const editBtn = document.createElement("button");
+          editBtn.textContent = "Edit";
+          editBtn.className =
+            "text-sm text-white bg-[#a81a1a] hover:bg-red-700 px-3 py-1 rounded-md transition";
+          editBtn.addEventListener("click", () => openEditUserModal(index));
+          li.appendChild(editBtn);
+        }
+
+        userList.appendChild(li);
+      });
+    }
+
+    // Show section helper with role-based display logic
+    function showSection(section) {
+      sectionAddUser.classList.add("hidden");
+      sectionQueueHerman.classList.add("hidden");
+      sectionQueueNur.classList.add("hidden");
+      menuAddUser.classList.remove("border-[#a81a1a]");
+      menuQueue.classList.remove("border-[#a81a1a]");
+
+      if (currentUser.role === "doctor") {
+        // Doctors see only their own queue section, no menu
+        if (doctorQueueMap[currentUser.username] === "herman") {
+          sectionQueueHerman.classList.remove("hidden");
+        } else if (doctorQueueMap[currentUser.username] === "nur") {
+          sectionQueueNur.classList.remove("hidden");
+        }
+        // No menu for doctors
+      } else {
+        // Admin and staff have full menu and sections
+        if (section === "user") {
+          sectionAddUser.classList.remove("hidden");
+          menuAddUser.classList.add("border-[#a81a1a]");
+        } else if (section === "queue") {
+          // Show both doctor queues sections for admins/staff
+          sectionQueueHerman.classList.remove("hidden");
+          sectionQueueNur.classList.remove("hidden");
+          menuQueue.classList.add("border-[#a81a1a]");
+        }
+      }
+    }
+
+    // Login form submit
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const username = loginForm.loginUsername.value.trim();
+      const password = loginForm.loginPassword.value;
+
+      const user = usersDB.find(
+        (u) => u.username === username && u.password === password
+      );
+
+      if (user) {
+        currentUser = user;
+        loginError.textContent = "";
+        loginForm.reset();
+        loginPage.classList.add("hidden");
+        dashboardPage.classList.remove("hidden");
+
+        // Show/hide menu based on role
+        if (currentUser.role === "doctor") {
+          dashboardMenu.classList.add("hidden");
+          // show only that doctor's queue section
+          showSection("queue");
+          userMessage.textContent = "";
+        } else {
+          dashboardMenu.classList.remove("hidden");
+          showSection("user");
+          renderUsers();
+          userMessage.textContent = "";
+        }
+        renderQueues();
+        updateDisplayCallHerman("-");
+        updateDisplayCallNur("-");
+      } else {
+        loginError.textContent = "Username atau password salah.";
+      }
+    });
+
+    // Logout button
+    logoutBtn.addEventListener("click", () => {
+      currentUser = null;
+      loginPage.classList.remove("hidden");
+      dashboardPage.classList.add("hidden");
+      userMessage.textContent = "";
+      updateDisplayCallHerman("-");
+      updateDisplayCallNur("-");
+      dashboardMenu.classList.add("hidden");
+      sectionAddUser.classList.add("hidden");
+      sectionQueueHerman.classList.add("hidden");
+      sectionQueueNur.classList.add("hidden");
+    });
+
+    // Menu clicks
+    menuAddUser.addEventListener("click", () => showSection("user"));
+    menuQueue.addEventListener("click", () => showSection("queue"));
+
+    // Add user form submit
+    addUserForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = addUserForm.userName.value.trim();
+      const password = addUserForm.userPassword.value;
+      const role = addUserForm.userRole.value;
+
+      if (name && password && role) {
+        // Generate username from name (simple, lowercase no spaces)
+        const username = name.toLowerCase().replace(/\s+/g, "");
+
+        // Check if username exists
+        if (usersDB.some((u) => u.username === username)) {
+          userMessage.textContent = `Username "${username}" sudah ada, coba nama lain.`;
+          userMessage.classList.remove("text-green-600");
+          userMessage.classList.add("text-red-600");
+          return;
+        }
+
+        usersDB.push({ username, password, role, name });
+        renderUsers();
+        userMessage.textContent = `User "${name}" berhasil ditambahkan dengan username "${username}".`;
+        userMessage.classList.remove("text-red-600");
+        userMessage.classList.add("text-green-600");
+        addUserForm.reset();
+        setTimeout(() => {
+          userMessage.textContent = "";
+        }, 5000);
+      }
+    });
+
+    function syncQueuesToLocalStorage() {
+  localStorage.setItem("queueHerman", JSON.stringify(queueHerman));
+  localStorage.setItem("queueNur", JSON.stringify(queueNur));
+}
+// Panggil fungsi ini setiap kali renderQueues
+    function renderQueues() {
+      queueHermanList.innerHTML = "";
+      queueHerman.forEach((patient) => {
+        const li = document.createElement("li");
+        li.textContent = `${patient.number}. ${patient.name}`;
+        queueHermanList.appendChild(li);
+      });
+
+      queueNurList.innerHTML = "";
+      queueNur.forEach((patient) => {
+        const li = document.createElement("li");
+        li.textContent = `${patient.number}. ${patient.name}`;
+        queueNurList.appendChild(li);
+      });
+
+      syncQueuesToLocalStorage(); // Tambahkan baris ini
+    }
+
+    // Add to Dr. Herman queue
+    addQueueHermanForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // Only allow if current user is admin or staff or doctor Herman
+      if (currentUser.role === "admin" || currentUser.role === "staff" || (currentUser.role === "doctor" && doctorQueueMap[currentUser.username] === "herman")) {
+        const name = queueHermanInput.value.trim();
+        if (name) {
+          const number = queueHerman.length > 0 ? queueHerman[queueHerman.length - 1].number + 1 : 1;
+          queueHerman.push({ number, name });
+          renderQueues();
+          queueHermanInput.value = "";
+        }
+      }
+    });
+
+    // Add to Dr. Nur queue
+    addQueueNurForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // Only allow if current user is admin or staff or doctor Nur
+      if (currentUser.role === "admin" || currentUser.role === "staff" || (currentUser.role === "doctor" && doctorQueueMap[currentUser.username] === "nur")) {
+        const name = queueNurInput.value.trim();
+        if (name) {
+          const number = queueNur.length > 0 ? queueNur[queueNur.length - 1].number + 1 : 1;
+          queueNur.push({ number, name });
+          renderQueues();
+          queueNurInput.value = "";
+        }
+      }
+    });
+
+    // Reset queue Dr. Herman
+    resetQueueHermanBtn.addEventListener("click", () => {
+      if (currentUser.role === "admin" || currentUser.role === "staff" || (currentUser.role === "doctor" && doctorQueueMap[currentUser.username] === "herman")) {
+        if (confirm("Yakin ingin mereset antrian dr. Herman?")) {
+          queueHerman = [];
+          currentCallHerman = null;
+          renderQueues();
+          updateDisplayCallHerman("-");
+        }
+      }
+    });
+
+    // Call next patient Dr. Herman
+    callNextHermanBtn.addEventListener("click", () => {
+      if (currentUser.role === "admin" || currentUser.role === "staff" || (currentUser.role === "doctor" && doctorQueueMap[currentUser.username] === "herman")) {
+        if (queueHerman.length > 0) {
+          const nextPatient = queueHerman.shift();
+          currentCallHerman = { doctor: "dr. Herman", name: nextPatient.name, number: nextPatient.number };
+          renderQueues();
+          updateDisplayCallHerman(`Panggilan: ${currentCallHerman.number}. ${currentCallHerman.name} ke ${currentCallHerman.doctor}`);
+          speakCall(currentCallHerman.number, currentCallHerman.name, currentCallHerman.doctor);
+        } else {
+          updateDisplayCallHerman("Tidak ada pasien dalam antrian dr. Herman, Sp.M.");
+        }
+      }
+    });
+
+    // Repeat call Dr. Herman
+    repeatCallHermanBtn.addEventListener("click", () => {
+      if (currentUser.role === "admin" || currentUser.role === "staff" || (currentUser.role === "doctor" && doctorQueueMap[currentUser.username] === "herman")) {
+        if (currentCallHerman) {
+          updateDisplayCallHerman(`Panggilan: ${currentCallHerman.number}. ${currentCallHerman.name} ke ${currentCallHerman.doctor}`);
+          speakCall(currentCallHerman.number, currentCallHerman.name, currentCallHerman.doctor);
+        }
+      }
+    });
+
+    // Call next patient Dr. Nur
+    callNextNurBtn.addEventListener("click", () => {
+      if (currentUser.role === "admin" || currentUser.role === "staff" || (currentUser.role === "doctor" && doctorQueueMap[currentUser.username] === "nur")) {
+        if (queueNur.length > 0) {
+          const nextPatient = queueNur.shift();
+          currentCallNur = { doctor: "dr. Nur Chaironika", name: nextPatient.name, number: nextPatient.number };
+          renderQueues();
+          updateDisplayCallNur(`Panggilan: ${currentCallNur.number}. ${currentCallNur.name} ke ${currentCallNur.doctor}`);
+          speakCall(currentCallNur.number, currentCallNur.name, currentCallNur.doctor);
+        } else {
+          updateDisplayCallNur("Tidak ada pasien dalam antrian dr. Nur Chaironika, Sp.M.");
+        }
+      }
+    });
+
+    // Repeat call Dr. Nur
+    repeatCallNurBtn.addEventListener("click", () => {
+      if (currentUser.role === "admin" || currentUser.role === "staff" || (currentUser.role === "doctor" && doctorQueueMap[currentUser.username] === "nur")) {
+        if (currentCallNur) {
+          updateDisplayCallNur(`Panggilan: ${currentCallNur.number}. ${currentCallNur.name} ke ${currentCallNur.doctor}`);
+          speakCall(currentCallNur.number, currentCallNur.name, currentCallNur.doctor);
+        }
+      }
+    });
+
+    // Update display call text for Dr. Herman
+    function updateDisplayCallHerman(text) {
+      displayCallHerman.textContent = text;
+    }
+
+    // Update display call text for Dr. Nur
+    function updateDisplayCallNur(text) {
+      displayCallNur.textContent = text;
+    }
+
+    // Speech synthesis for call with number
+    function speakCall(number, name, doctor) {
+      if (!("speechSynthesis" in window)) return;
+      // Pastikan nama dokter sudah urut abjad
+      const sortedDoctor = getSortedDoctorName(doctor);
+      const utterance = new SpeechSynthesisUtterance(
+        `Nomor antrian ${number}, atas nama ${name}, dipersilakan masuk ke ruang ${sortedDoctor}.`
+      );
+      utterance.lang = "id-ID";
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Modal for editing user - may remain unused now since no admin user defined here
+    function openEditUserModal(userIndex) {
+      const user = usersDB[userIndex];
+
+      // Create modal background
+      const modalBg = document.createElement("div");
+      modalBg.className =
+        "fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50";
+
+      // Create modal container
+      const modal = document.createElement("div");
+      modal.className =
+        "bg-white rounded-md p-6 max-w-md w-full shadow-lg relative";
+
+      // Modal content HTML
+      modal.innerHTML = `
+        <h3 class="text-xl font-bold mb-4 text-[#a81a1a]">Edit User: ${user.name}</h3>
+        <form id="editUserForm" class="space-y-4">
+          <div>
+            <label for="editUserName" class="block font-semibold mb-1 text-gray-700">Nama User</label>
+            <input type="text" id="editUserName" name="editUserName" value="${user.name}" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]" required />
+          </div>
+          <div>
+            <label for="editUserPassword" class="block font-semibold mb-1 text-gray-700">Password</label>
+            <input type="password" id="editUserPassword" name="editUserPassword" placeholder="Isi jika ingin ganti password" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]" />
+          </div>
+          <div>
+            <label for="editUserRole" class="block font-semibold mb-1 text-gray-700">Jabatan</label>
+            <select id="editUserRole" name="editUserRole" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#a81a1a]" required>
+              <option value="admin" ${user.role === "admin" ? "selected" : ""}>Admin</option>
+              <option value="staff" ${user.role === "staff" ? "selected" : ""}>Staff</option>
+              <option value="doctor" ${user.role === "doctor" ? "selected" : ""}>Dokter</option>
+            </select>
+          </div>
+          <div class="flex justify-end space-x-4 mt-6">
+            <button type="button" id="cancelEditBtn" class="px-4 py-2 rounded-md border border-gray-400 hover:bg-gray-100 transition">Batal</button>
+            <button type="submit" class="bg-[#a81a1a] text-white font-bold px-6 py-2 rounded-md hover:bg-red-700 transition">Simpan</button>
+          </div>
+        </form>
+      `;
+
+      modalBg.appendChild(modal);
+      document.body.appendChild(modalBg);
+
+      // Cancel button closes modal
+      modal.querySelector("#cancelEditBtn").addEventListener("click", () => {
+        document.body.removeChild(modalBg);
+      });
+
+      // Handle edit form submit
+      modal.querySelector("#editUserForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const newName = modal.querySelector("#editUserName").value.trim();
+        const newPassword = modal.querySelector("#editUserPassword").value;
+        const newRole = modal.querySelector("#editUserRole").value;
+
+        if (!newName || !newRole) return;
+
+        // Update user data
+        user.name = newName;
+        if (newPassword) {
+          user.password = newPassword;
+        }
+        user.role = newRole;
+
+        renderUsers();
+        userMessage.textContent = `User "${newName}" berhasil diperbarui.`;
+        userMessage.classList.remove("text-red-600");
+        userMessage.classList.add("text-green-600");
+
+        setTimeout(() => {
+          userMessage.textContent = "";
+        }, 5000);
+
+        document.body.removeChild(modalBg);
+      });
+    }
+  </script>
+</body>
+</html>
+
